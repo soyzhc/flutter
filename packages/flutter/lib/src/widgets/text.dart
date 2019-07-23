@@ -181,6 +181,13 @@ class DefaultTextStyle extends InheritedWidget {
 ///
 /// {@tool sample}
 ///
+/// This example shows how to display text using the [Text] widget. If the text
+/// overflows, it truncates the text with an ellipsis.
+///
+/// ![A screenshot of the Text widget](https://flutter.github.io/assets-for-api-docs/assets/widgets/text.png)
+///
+/// ![A screenshot of the Text widget displaying an ellipsis to trim the overflowing text](https://flutter.github.io/assets-for-api-docs/assets/widgets/text_ellipsis.png)
+///
 /// ```dart
 /// Text(
 ///   'Hello, $_name! How are you?',
@@ -197,6 +204,8 @@ class DefaultTextStyle extends InheritedWidget {
 /// for each word.
 ///
 /// {@tool sample}
+///
+/// ![A screenshot of the following rich text example](https://flutter.github.io/assets-for-api-docs/assets/widgets/text_rich.png)
 ///
 /// ```dart
 /// const Text.rich(
@@ -256,9 +265,16 @@ class Text extends StatelessWidget {
        textSpan = null,
        super(key: key);
 
-  /// Creates a text widget with a [TextSpan].
+  /// Creates a text widget with a [InlineSpan].
+  ///
+  /// The following subclasses of [InlineSpan] may be used to build rich text:
+  ///
+  /// * [TextSpan]s define text and children [InlineSpan]s.
+  /// * [WidgetSpan]s define embedded inline widgets.
   ///
   /// The [textSpan] parameter must not be null.
+  ///
+  /// See [RichText] which provides a lower-level way to draw text.
   const Text.rich(
     this.textSpan, {
     Key key,
@@ -285,10 +301,10 @@ class Text extends StatelessWidget {
   /// This will be null if a [textSpan] is provided instead.
   final String data;
 
-  /// The text to display as a [TextSpan].
+  /// The text to display as a [InlineSpan].
   ///
   /// This will be null if [data] is provided instead.
-  final TextSpan textSpan;
+  final InlineSpan textSpan;
 
   /// If non-null, the style to use for this text.
   ///

@@ -14,7 +14,7 @@ void main() {
     });
     expect(log[0], contains('Example label'));
     expect(log[1], contains('debugPrintStack'));
-  });
+  }, skip: isBrowser);
 
   test('debugPrintStack', () {
     final List<String> log = captureOutput(() {
@@ -39,7 +39,7 @@ void main() {
 
     expect(joined, contains('captureOutput'));
     expect(joined, contains('\nExample information\n'));
-  });
+  }, skip: isBrowser);
 
   test('FlutterErrorDetails.toString', () {
     expect(
@@ -119,6 +119,20 @@ void main() {
       'The following Null object was thrown:\n'
       '  null\n'
       '═════════════════════════════════════════════════════════════════\n'
+    );
+  });
+
+  test('FlutterErrorDetails.toStringShort', () {
+    expect(
+        FlutterErrorDetails(
+          exception: 'MESSAGE',
+          library: 'library',
+          context: ErrorDescription('CONTEXTING'),
+          informationCollector: () sync* {
+            yield ErrorDescription('INFO');
+          },
+        ).toStringShort(),
+        'Exception caught by library',
     );
   });
 
